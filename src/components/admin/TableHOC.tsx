@@ -3,12 +3,11 @@ import {
   AiOutlineSortDescending,
 } from "react-icons/ai";
 import {
-  Column,
   usePagination,
   useSortBy,
   useTable,
-  TableOptions,
 } from "react-table";
+import type { Column, TableOptions } from "react-table";
 
 function TableHOC<T extends Object>(
   columns: Column<T>[],
