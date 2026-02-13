@@ -108,14 +108,14 @@ const Search = () => {
                 name={i.name}
                 price={i.price}
                 stock={i.stock}
-                photo={i.photo}
+                photo={i.photos?.[0]?.url || ""}
                 handler={addToCartHandler}
               />
             ))}
           </div>
         )}
 
-        {searchedData && searchedData.totolPage > 1 && (
+        {searchedData && searchedData.totalPage > 1 && (
           <article>
             <button
               disabled={!isPrevPage}
@@ -124,7 +124,7 @@ const Search = () => {
               Prev
             </button>
             <span>
-              {page} of {searchedData.totolPage}
+              {page} of {searchedData.totalPage}
             </span>
             <button
               disabled={!isNextPage}

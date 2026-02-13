@@ -36,12 +36,9 @@ const Shipping = () => {
     })))
   }
 
-  const submitHandler = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(saveShippingInfo({
-      ...shippingInfo,
-      pinCode: Number(shippingInfo.pinCode)
-    }));
+    dispatch(saveShippingInfo(shippingInfo));
     try {
       const { data } = await axios.post(`
             ${server}/api/v1/payment/create`, {

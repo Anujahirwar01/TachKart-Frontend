@@ -22,7 +22,7 @@ const getCartFromLocalStorage = (): CartReducerInitialState => {
                     city: "",
                     state: "",
                     country: "",
-                    pinCode: 0,
+                    pinCode: "",
                 }
             };
         }
@@ -40,7 +40,7 @@ const getCartFromLocalStorage = (): CartReducerInitialState => {
             city: "",
             state: "",
             country: "",
-            pinCode: 0,
+            pinCode: "",
         }
     };
 };

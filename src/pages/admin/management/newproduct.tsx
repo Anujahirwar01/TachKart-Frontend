@@ -1,6 +1,5 @@
-import type { ChangeEvent, SubmitEvent } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
@@ -40,7 +39,7 @@ const NewProduct = () => {
     }
   };
 
-  const submitHandler = async (e: SubmitEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name || !category ||stock<0|| !price || !photo) {
       return;

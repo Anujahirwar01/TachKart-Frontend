@@ -1,4 +1,4 @@
-import type { ChangeEvent, SubmitEvent } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
@@ -56,7 +56,7 @@ const Productmanagement = () => {
     }
   };
 
-  const submitHandler = async (e: SubmitEvent<HTMLFormElement>): Promise<void> => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setProduct({
       _id: product._id,
