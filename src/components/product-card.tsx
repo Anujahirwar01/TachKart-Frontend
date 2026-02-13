@@ -13,16 +13,16 @@ type ProductsProps = {
 
 
 
-const ProdectCard = ({productId, name, price, photo, stock, handler}: ProductsProps) => {
+const ProdectCard = ({ productId, name, price, photo, stock, handler }: ProductsProps) => {
     // Check if photo is a full URL or just a filename
     const imageUrl = photo.startsWith('http') ? photo : `${server}/${photo}`;
-    
+
     return <div className="product-card">
         <img src={imageUrl} alt={name} />
         <p>{name}</p >
         <span>₹{price}</span>
         <div >
-            <button onClick={() => handler({productId, name, price, photo: imageUrl, stock, quantity: 1})}><FaPlus/></button>
+            <button onClick={() => handler({ productId, name, price, photo: imageUrl, stock, quantity: 1 })}><FaPlus /></button>
         </div>
     </div>;
 }
