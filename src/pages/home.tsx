@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { Link } from "react-router"
 import { SkeletonLoader } from "../components/loader"
 import ProductCard from "../components/product-card"
-import Footer from "../components/footer"
+// import Footer from "../components/footer"
 import { useLatestProductsQuery } from "../redux/api/productAPI"
 import { addToCartRequest, calculatePrice } from "../redux/reducer/cartReducer"
 import type { CartItem } from "../types/types"
@@ -329,7 +329,7 @@ const Home = () => {
         </ul>
       </article>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

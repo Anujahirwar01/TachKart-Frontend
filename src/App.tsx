@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
+import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom"
 import Header from './components/header'
+import Footer from './components/footer'
 import Loader from './components/loader'
 import { Toaster } from 'react-hot-toast'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -51,6 +52,12 @@ const DiscountManagement = lazy(
 );
 
 
+const FooterWrapper = () => {
+  const { pathname } = useLocation();
+  const hide = pathname === '/login' || pathname.startsWith('/admin');
+  return hide ? null : <Footer />;
+};
+
 const App = () => {
 
   const { user, loading } = useSelector((state: { user: UserReducerInitialState }) => state.user);
@@ -97,12 +104,12 @@ const App = () => {
           <Route path='/cart' element={<Cart />} />
 
           {/*Not loggedin route */}
-          <Route path='/login' element={<ProtectedRoute isAuthenticated={user ? false: true}>
+          <Route path='/login' element={<ProtectedRoute isAuthenticated={user ? false : true}>
             <Login />
           </ProtectedRoute>} />
 
           {/*Loggedin Route*/}
-          <Route element={<ProtectedRoute isAuthenticated={user ? true: false}/>}>
+          <Route element={<ProtectedRoute isAuthenticated={user ? true : false} />}>
             <Route path='/shipping' element={<Shipping />} />
             <Route path='/orders' element={<Orders />} />
             <Route path='/order/:id' element={<OrderDetails />} />
@@ -111,9 +118,9 @@ const App = () => {
           </Route>
           {/* Admin Routes */}
           <Route
-          element={
-            <ProtectedRoute isAuthenticated={true} adminRoute={true} isAdmin={user?.role === "admin"?true:false} />
-          }
+            element={
+              <ProtectedRoute isAuthenticated={true} adminRoute={true} isAdmin={user?.role === "admin" ? true : false} />
+            }
           >
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/product" element={<Products />} />
@@ -137,13 +144,14 @@ const App = () => {
             <Route path="/admin/discount/:id" element={<DiscountManagement />} />
             <Route path="/admin/transaction/:id" element={<TransactionManagement />} />
           </Route>;
-                      <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
 
 
         </Routes>
 
 
       </Suspense>
+      <FooterWrapper />
       <Toaster position='bottom-center' reverseOrder={false} />
     </Router>
   )
