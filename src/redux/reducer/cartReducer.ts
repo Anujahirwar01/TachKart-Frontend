@@ -92,7 +92,26 @@ export const cartReducer = createSlice({
         saveShippingInfo: (state, action: PayloadAction<ShippingInfo>) => {
             state.shippingInfo = action.payload;
         },
-        resetCart: () => initialState,
+        resetCart: () => {
+            localStorage.removeItem("cartItems");
+            localStorage.removeItem("cartUserId");
+            return {
+                loading: false,
+                cartItems: [],
+                subtotal: 0,
+                tax: 0,
+                shippingCharges: 0,
+                discount: 0,
+                total: 0,
+                shippingInfo: {
+                    address: "",
+                    city: "",
+                    state: "",
+                    country: "",
+                    pinCode: "",
+                }
+            };
+        },
     }
 
 })

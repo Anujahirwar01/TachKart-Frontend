@@ -7,8 +7,8 @@ import { Toaster } from 'react-hot-toast'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase'
 import { useAppDispatch } from './redux/hooks'
-import { userExist } from './redux/reducer/userReducer'
-import { userNotExist } from './redux/reducer/userReducer'
+import { userExist, userNotExist } from './redux/reducer/userReducer'
+import { resetCart } from './redux/reducer/cartReducer'
 import { getUser, getDemoAdminUser } from './redux/api/userAPI'
 import { useSelector } from 'react-redux'
 import type { UserReducerInitialState } from './types/reducer-types'
@@ -67,6 +67,12 @@ const App = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
+        // Clear cart if it belongs to a different user
+        const cartUserId = localStorage.getItem("cartUserId");
+        if (cartUserId && cartUserId !== firebaseUser.uid) {
+          dispatch(resetCart());
+        }
+        localStorage.setItem("cartUserId", firebaseUser.uid);
         try {
           const data = await getUser(firebaseUser.uid)
           dispatch(userExist(data.user))
@@ -75,6 +81,8 @@ const App = () => {
           dispatch(userNotExist())
         }
       } else {
+        // User logged out — clear their cart
+        dispatch(resetCart());
         // Check for demo admin session
         if (localStorage.getItem("demo-admin-session") === "true") {
           try {
